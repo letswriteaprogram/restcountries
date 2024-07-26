@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy } from "react";
 import {
   Route,
   RouterProvider,
@@ -7,14 +7,15 @@ import {
 } from "react-router-dom";
 import Layout from "./Layout";
 import Home from "./pages/Home";
-import CountryDetail from "./pages/CountryDetail";
+// import CountryDetail from "./pages/CountryDetail";
+const CountryDetail = lazy(()=>import(`./pages/CountryDetail`))
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Layout />}>
         <Route path="" element={<Home />} />
-        <Route path="CountryDetail:id" element={<CountryDetail/>} />
+        <Route path="/:name" element={<CountryDetail/>} />
       </Route>
     )
   );

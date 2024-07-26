@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Card from "./Card/Card";
+import CardShimmer from "./Card/CardShimmer";
 
 function CountriesList({ region, search }) {
   const [countries, setCountries] = useState([]);
@@ -35,23 +37,28 @@ function CountriesList({ region, search }) {
 
     setFilteredCountries(filtered);
   }, [search, region, countries]);
+
   return (
-    <>{loading ? "loading" : "true"}</>
-    // <div className="countries-list">
-    //   {filteredCountries.length === 0 && search && !region && (
-    //     <p>No countries match your search query.</p>
-    //   )}
-    //   {filteredCountries.length === 0 && region && search && (
-    //     <p>No countries found in this region.</p>
-    //   )}
-    //   {filteredCountries.length > 0 &&
-    //     filteredCountries.map((country) => (
-    //       <div key={country.cca3} className="country-card">
-    //         <h3>{country.name.common}</h3>
-    //         <p>{country.region}</p>
-    //       </div>
-    //     ))}
-    // </div>
+    <>
+      {loading ? (
+        <CardShimmer />
+      ) : (
+        <div className="countries-list flex justify-center  flex-wrap gap-10 py-10 ">
+          {filteredCountries.length === 0 && search && !region && (
+            <p className="text-xl md:text-2xl lg:text-3xl m-10 dark:text-white dark:bg-transparent ">
+              No countries match your search query.
+            </p>
+          )}
+          {filteredCountries.length === 0 && region && search && (
+            <p className="text-3xl m-10 dark:text-white dark:bg-transparent ">
+              No countries found matching your search query in this region.
+            </p>
+          )}
+          {filteredCountries.length > 0 &&
+            filteredCountries.map((country) => <Card key={country.name.common} country={country}></Card>)}
+        </div>
+      )}
+    </>
   );
 }
 
