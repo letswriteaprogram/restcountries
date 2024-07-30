@@ -18,7 +18,7 @@ function CountryDetail() {
       capital: data.capital,
       flag: data.flags.svg,
       alt: data.flags.alt,
-
+      tld:data.tld[0],
       languages: Object.values(data.languages || {}).join(", "),
       currencies: Object.values(data.currencies || {})
         .map((currency) => currency.name)
@@ -42,6 +42,7 @@ function CountryDetail() {
       );
     });
   }
+
 
   useEffect(() => {
     if (state) {
@@ -107,7 +108,7 @@ function CountryDetail() {
                   <p>Sub Region : {countryData.subregion}</p>
                   <p>Capital : {countryData.capital?.join(", ")}</p>
                 </div>
-                <div className="flex max-w-80 flex-col gap-4">
+                <div className="flex max-w-80 flex-col gap-4 mt-4 md:mt-0">
                   <p>Top Level Domain : {countryData.tld}</p>
                   <p>Currencies : {countryData.currencies}</p>
                   <p>Languages : {countryData.languages}</p>
